@@ -57,5 +57,18 @@ namespace Sat.Recruitment.Api.Controllers
 
             return Ok(user);
         }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _mediator.Send(new GetUsersQuery(null));
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+        }
     }
 }

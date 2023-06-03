@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Api.Handlers.QueryHandlers
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, User>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<User>>
     {
         private readonly IRepository<User> _userRepository;
 
-        public GetUserQueryHandler(IRepository<User> userRepository)
+        public GetUsersQueryHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task<User> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            return _userRepository.GetById(request.Id);
+            return _userRepository.GetAll();
         }
     }
 }

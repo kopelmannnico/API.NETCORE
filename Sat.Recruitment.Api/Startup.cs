@@ -39,9 +39,22 @@ namespace Sat.Recruitment.Api
             }
             else
             {
-                string mySqlConnectionStr = Configuration.GetConnectionString("MySQLConnection").ToString();
+                var builder = new MySqlConnector.MySqlConnectionStringBuilder
+                {
+                    Server = "satrecruitmentapidbserver.mysql.database.azure.com",
+                    Database = "satrecruitmentapi_db",
+                    UserID = "satrecruitmentuser",
+                    Password = "Desarrollo01*",
+                    SslMode = MySqlConnector.MySqlSslMode.None,
+                };
                 services.AddDbContext<MyDbContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), ServerVersion.AutoDetect(mySqlConnectionStr)));
+                options.UseMySql(builder.ConnectionString, ServerVersion.AutoDetect(builder.ConnectionString)));
+
+                //string mySqlConnectionStr = Configuration.GetConnectionString("MySQLConnection").ToString();
+                //services.AddDbContext<MyDbContext>(options =>
+                //options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), ServerVersion.AutoDetect(mySqlConnectionStr)));
+
+                //services.AddDbContext<MyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MySQLConnection")));
                 services.AddScoped<IRepository<User>, UserRepositoryMySql>();
             }
 

@@ -11,7 +11,7 @@ namespace Sat.Recruitment.Api.Models
     [Table("users")]
     public abstract class User : IUser
     {
-        [JsonIgnore]
+        //[JsonIgnore]
         [Column("id")]
         public int Id { get; set; }
 
